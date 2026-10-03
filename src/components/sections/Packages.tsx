@@ -1,0 +1,54 @@
+import { ButtonLink } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
+import { PhotoPlaceholder } from "@/components/ui/PhotoPlaceholder";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import type { PublicPackage } from "@/server/db/types";
+import { formatRupiah } from "@/server/booking/whatsapp";
+
+function formatDuration(minutes: number): string {
+  const h = minutes / 60;
+  return `±${Number.isInteger(h) ? h : h.toLocaleString("id-ID")} jam`;
+}
+
+export function Packages({ packages }: { packages: PublicPackage[] }) {
+  return (
+    <section id="kegiatan" aria-labelledby="kegiatan-title" className="bg-sand py-20 lg:py-28">
+      <Container>
+        <SectionHeading id="kegiatan-title" eyebrow="Paket Wisata" title="Kegiatan Wisata" />
+        <ul className="mt-12 divide-y divide-line border-y border-line">
+          {packages.map((p) => (
+            <li key={p.id} className="grid gap-6 py-10 md:grid-cols-[minmax(0,320px)_1fr] md:gap-10">
+              <PhotoPlaceholder label={`Foto kegiatan ${p.name} (menyusul)`} className="aspect-[7/5] w-full rounded-sm" />
+              <div>
+                <h3 className="font-serif text-3xl font-semibold text-ink">{p.name}</h3>
+                {p.description && <p className="mt-3 text-lg leading-relaxed text-ink/85">{p.description}</p>}
+                <ul className="mt-4 grid gap-1.5 text-ink/85 sm:grid-cols-2">
+                  {p.facilities.map((f) => (
+                    <li key={f} className="flex gap-2">
+                      <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-terracotta" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-5 flex flex-wrap items-baseline gap-x-5 gap-y-1">
+                  <p className="font-serif text-3xl font-semibold text-ink">
+                    {formatRupiah(p.pricePerPerson)}
+                    <span className="font-sans text-base font-normal text-muted"> / orang</span>
+                  </p>
+                  <p className="text-sm tracking-wide text-muted">
+                    {formatDuration(p.durationMinutes)} · {p.minParticipants}–{p.maxParticipants} orang per pesanan
+                  </p>
+                </div>
+                <div className="mt-6">
+                  <ButtonLink href={`/?paket=${p.slug}#pemesanan`} variant="secondary">
+                    Pesan {p.name.split(" (")[0]}
+                  </ButtonLink>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
+  );
+}

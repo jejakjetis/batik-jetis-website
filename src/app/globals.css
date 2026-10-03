@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design token (CLAUDE.md §5.1). Warna hanya didefinisikan di sini.
+ * Penyesuaian kontras WCAG AA:
+ *  - terracotta (#A95E3F) dipakai untuk latar tombol (teks putih 4.8:1).
+ *  - terracotta-text (#96502F) untuk teks kecil di latar terang (5.3:1 di cream, 4.8:1 di sand).
+ *  - terracotta-light (#D08E6A) untuk teks aksen di latar espresso (5.5:1).
+ *  - muted digelapkan ke #76594B (5.0:1 di sand); muted asli dipakai sebagai border input (≥3:1).
+ */
+@theme {
+  --color-cream: #f5efe6;
+  --color-sand: #ece3d8;
+  --color-espresso: #3a2016;
+  --color-ink: #2b1a12;
+  --color-terracotta: #a95e3f;
+  --color-terracotta-dark: #8e4c31;
+  --color-terracotta-text: #96502f;
+  --color-terracotta-light: #d08e6a;
+  --color-muted: #76594b;
+  --color-line: #d9ccbe;
+  --color-field: #8a6f60;
+  --color-danger: #a12c1f;
+  --color-success: #2f6b3a;
+
+  --font-serif: var(--font-cormorant), "Times New Roman", serif;
+  --font-sans: var(--font-source-sans), system-ui, sans-serif;
+
+  --container-site: 75rem; /* ±1200px */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* tinggi navbar sticky */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

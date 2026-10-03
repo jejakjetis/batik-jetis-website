@@ -1,10 +1,11 @@
 import "server-only";
 import { z } from "zod";
 
-// Divalidasi saat server start (src/instrumentation.ts) dan lazy saat pertama dipakai.
+// Di Workers, secret dibaca saat request (OpenNext mengisi process.env), jadi validasi lazy
+// saat pertama dipakai (dan saat start di produksi via instrumentation bila dijalankan).
 // Tidak saat build, agar build tidak butuh secret. Gagal keras jika env wajib kosong.
+// Database tidak lewat env: memakai binding HYPERDRIVE (wrangler.jsonc).
 const serverEnvSchema = z.object({
-  DATABASE_URL: z.url(), // pooler Supabase transaction mode (6543)
   SUPABASE_URL: z.url(),
   SUPABASE_ANON_KEY: z.string().min(1),
   ADMIN_EMAILS: z

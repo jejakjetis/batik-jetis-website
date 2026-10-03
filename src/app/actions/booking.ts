@@ -6,14 +6,14 @@ import { bookingInputSchema } from "@/server/booking/input";
 import { RULE_MESSAGES } from "@/server/booking/rules";
 import { createBooking } from "@/server/db/bookings";
 import { getDb } from "@/server/db/client";
-import { buildWhatsappMessage, buildWhatsappUrl } from "@/server/booking/whatsapp";
+import { type BookingSummary, buildWhatsappMessage, buildWhatsappUrl } from "@/server/booking/whatsapp";
 import { checkRateLimit } from "@/server/security/rate-limit";
 import { verifyTurnstile } from "@/server/security/turnstile";
 
 export type BookingActionState =
   | { status: "idle" }
   | { status: "error"; message: string; fieldErrors?: Record<string, string> }
-  | { status: "success"; code: string; whatsappUrl: string };
+  | { status: "success"; summary: BookingSummary; whatsappUrl: string };
 
 const GENERIC_ERROR = "Pemesanan belum dapat diproses. Silakan coba lagi atau hubungi kami lewat WhatsApp.";
 
@@ -47,9 +47,9 @@ export async function submitBooking(
 ): Promise<BookingActionState> {
   try {
     const h = await headers();
-    // Di Vercel, x-forwarded-for diisi oleh edge Vercel (nilai klien ditimpa).
-    const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-    const db = getDb();
+    // Di Cloudflare, cf-connecting-ip diisi oleh edge Cloudflare (tidak bisa dipalsukan klien).
+    const ip = h.get("cf-connecting-ip") ?? "unknown";
+    const db = await getDb();
 
     if (!(await checkRateLimit(db, "booking", ip))) {
       return { status: "error", message: "Terlalu banyak percobaan. Silakan tunggu beberapa menit." };
@@ -90,7 +90,7 @@ export async function submitBooking(
     }
 
     const whatsappUrl = buildWhatsappUrl(env.BOOKING_WHATSAPP_NUMBER, buildWhatsappMessage(result.summary));
-    return { status: "success", code: result.summary.code, whatsappUrl };
+    return { status: "success", summary: result.summary, whatsappUrl };
   } catch (e) {
     // Log tanpa data pribadi: hanya nama error.
     console.error("submitBooking gagal:", e instanceof Error ? e.name : "unknown");

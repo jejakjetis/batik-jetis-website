@@ -4,10 +4,11 @@ import { createPrismaClient } from "@/server/db/client";
 import { createBooking } from "@/server/db/bookings";
 import { parseDateOnly } from "@/server/booking/rules";
 
-// Test terhadap Supabase sungguhan lewat POOLER (DATABASE_URL, transaction mode 6543),
-// memakai konfigurasi klien yang sama dengan runtime. Dilewati bila DATABASE_URL kosong.
+// Test terhadap Supabase sungguhan dengan string koneksi yang sama dengan simulasi Hyperdrive lokal
+// (koneksi langsung 5432) dan konfigurasi klien yang sama dengan runtime (createPrismaClient).
+// Dilewati bila env kosong.
 // Hanya menghapus data yang dibuat test ini sendiri (paket/sesi bertanda __test__).
-const url = process.env.DATABASE_URL;
+const url = process.env.CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE ?? process.env.DIRECT_URL;
 const NOW = new Date("2026-10-01T03:00:00Z"); // Kamis 10:00 WIB
 const VISIT = "2026-10-10"; // Sabtu, H-9
 

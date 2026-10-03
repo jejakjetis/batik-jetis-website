@@ -3,7 +3,9 @@
 
 generator client {
   provider      = "prisma-client"
-  output   = "../src/generated/prisma"
+  output        = "../src/generated/prisma"
+  // Cloudflare Worker: batas ukuran bundle -> query compiler varian "small" (±setengah ukuran "fast").
+  compilerBuild = "small"
 }
 
 datasource db {

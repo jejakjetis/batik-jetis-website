@@ -77,7 +77,7 @@ Harus berisi: deskripsi singkat proyek, stack, cara menjalankan lokal, daftar en
 - PostgreSQL di Supabase; akses data lewat **Prisma**
 - Supabase Auth (khusus login admin)
 - Zod untuk validasi
-- Deploy: Vercel
+- Deploy: **Cloudflare Workers** via `@opennextjs/cloudflare` (OpenNext); database runtime lewat binding **Hyperdrive** ke koneksi langsung Supabase (port 5432). Pantau ukuran bundle Worker (batas paket gratis 3 MiB gzip).
 - Zona waktu bisnis: **Asia/Jakarta (WIB)**
 
 Jangan menambah dependency baru tanpa alasan jelas. Jika menambah, catat alasannya di `progres.md` bagian "Keputusan penting". Pilih paket yang aktif dirawat dan populer; hindari paket kecil yang tidak jelas pemeliharanya.
@@ -127,9 +127,9 @@ Buat agar mudah diubah (konfigurasi atau database), jangan di-hardcode tersebar:
 
 ### 4.1 Rahasia dan environment
 - Tidak pernah menulis secret, password, API key, atau connection string di kode, commit, log, atau file markdown.
-- Semua rahasia di `.env.local` (dan Vercel env). `.env*` wajib ada di `.gitignore`; sediakan `.env.example` berisi nama variabel saja.
-- `SUPABASE_SERVICE_ROLE_KEY` dan `DATABASE_URL` **hanya** dipakai di server. Jangan pernah diberi prefix `NEXT_PUBLIC_`. Modul yang memakainya wajib diawali `import "server-only"`.
-- Validasi env saat startup dengan Zod; aplikasi gagal start jika env wajib tidak ada.
+- Rahasia lokal di `.env` (CLI/test) dan `.dev.vars` (runtime Worker lokal); produksi lewat `wrangler secret put` / dashboard Cloudflare. `.env*` dan `.dev.vars*` wajib ada di `.gitignore`; sediakan `.env.example` dan `.dev.vars.example` berisi nama variabel saja.
+- Connection string database (`DIRECT_URL`, binding Hyperdrive) dan kunci Supabase **hanya** dipakai di server. Jangan pernah diberi prefix `NEXT_PUBLIC_`. Modul yang memakainya wajib diawali `import "server-only"`.
+- Validasi env dengan Zod (`src/lib/env.ts`); gagal keras jika env wajib tidak ada. Di Workers, secret dibaca saat request, jadi validasi dilakukan saat pertama dipakai.
 
 ### 4.2 Akses database
 - Semua query lewat Prisma di server (Server Components, Server Actions, Route Handlers). Klien/browser tidak pernah query database langsung.
@@ -149,14 +149,14 @@ Buat agar mudah diubah (konfigurasi atau database), jangan di-hardcode tersebar:
 - Tulis test untuk skenario dua pesanan bersamaan yang melebihi kuota.
 
 ### 4.5 Anti-spam dan penyalahgunaan
-- Rate limit pada server action pemesanan (per IP, mis. maks 5 per 10 menit). Jika memakai layanan eksternal (mis. Upstash), catat di README.
+- Rate limit pada server action pemesanan (per IP, mis. maks 5 per 10 menit). Saat ini memakai tabel Postgres `RateLimit` (tanpa layanan eksternal); produksi gagal tertutup bila rate limit tidak tersedia.
 - Tambahkan honeypot field tersembunyi; tolak diam-diam jika terisi.
 - Kode pesanan acak dan tidak bisa ditebak (mis. 8 karakter dari generator kriptografis), bukan ID berurutan.
 
 ### 4.6 Admin
 - Login admin dengan Supabase Auth (email + password). **Tidak ada fitur daftar akun publik.**
 - Hanya email yang ada di allowlist (env `ADMIN_EMAILS` atau tabel `admin`) yang boleh mengakses.
-- Proteksi **dua lapis**: middleware untuk route `/admin/**` **dan** pengecekan sesi + allowlist di setiap Server Action/Route Handler admin. Jangan hanya mengandalkan middleware atau menyembunyikan tombol.
+- Proteksi **dua lapis**: pengecekan sesi + allowlist di layout/halaman `/admin` (server) **dan** di setiap Server Action/Route Handler admin. Jangan hanya mengandalkan satu lapis atau menyembunyikan tombol. (`proxy.ts`/middleware sengaja tidak dipakai: di OpenNext menambah ±1,3 MiB bundle.)
 - Gunakan `@supabase/ssr` dengan cookie httpOnly; jangan menyimpan token di localStorage.
 - Halaman admin diberi `noindex`.
 - Catat setiap perubahan status pesanan (siapa, kapan, dari status apa ke apa).
@@ -170,7 +170,7 @@ Buat agar mudah diubah (konfigurasi atau database), jangan di-hardcode tersebar:
 - Set security headers di `next.config`: `Content-Security-Policy` (izinkan hanya domain yang benar-benar dipakai, mis. Google Fonts dan embed peta), `X-Frame-Options: DENY` atau `frame-ancestors 'none'`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` minimal.
 - Jangan pernah memakai `dangerouslySetInnerHTML` dengan data dari database atau pengguna.
 - Link WhatsApp dibuat dengan `encodeURIComponent` dan dibuka dengan `rel="noopener noreferrer"`.
-- `next/image`: batasi `remotePatterns` hanya ke domain yang dipakai.
+- `next/image`: `images.unoptimized` aktif; gambar di `/public` wajib sudah dioptimasi (WebP, ukuran sesuai pemakaian). Jika kelak memakai gambar remote, batasi `remotePatterns` hanya ke domain yang dipakai.
 
 ### 4.9 Sebelum menyatakan tugas selesai
 - `npm run lint`, `npm run build`, dan test lulus tanpa error.
@@ -229,8 +229,9 @@ Nilai di bawah perkiraan dari screenshot; sesuaikan jika screenshot menunjukkan 
 - Struktur yang disarankan (sesuaikan dan dokumentasikan di README):
   - `src/app/` route (publik di `(public)`, admin di `admin`)
   - `src/components/` komponen UI per section
-  - `src/lib/` util, konfigurasi, klien Prisma/Supabase (`server-only` untuk yang sensitif)
-  - `src/server/` server actions dan logika bisnis (pemesanan, kuota)
+  - `src/lib/` util dan konfigurasi (`server-only` untuk yang sensitif)
+  - `src/server/` logika bisnis (pemesanan, kuota), auth admin; **semua akses DB di `src/server/db/`**
+  - `src/app/actions/` server actions
   - `prisma/` schema, migrasi, seed
   - `Design/` screenshot desain
 - Logika bisnis (aturan tanggal, kuota, hitung harga) dipisah dari komponen dan diberi unit test.
@@ -248,3 +249,13 @@ Nilai di bawah perkiraan dari screenshot; sesuaikan jika screenshot menunjukkan 
 - Jangan menghapus atau menulis ulang kode yang tidak berhubungan dengan tugas.
 - Jangan menjalankan perintah destruktif ke database (reset, drop, delete massal) tanpa konfirmasi eksplisit dari developer.
 - Di akhir setiap tugas, berikan ringkasan: apa yang diubah, file yang disentuh, cara mengetesnya, dan catatan keamanan.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

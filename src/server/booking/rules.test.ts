@@ -101,3 +101,17 @@ describe("peserta, harga, kuota", () => {
     expect(checkQuota(25, 6, 30)).toEqual({ ok: false, error: "QUOTA_EXCEEDED" });
   });
 });
+
+import { bookableDates, bookingWindow } from "./dates";
+
+describe("bookableDates", () => {
+  it("hanya Sabtu/Minggu dalam H-3..60, tanpa tanggal tutup", () => {
+    expect(bookingWindow(THU_MORNING)).toEqual({ from: "2026-10-04", to: "2026-11-30" });
+    const dates = bookableDates(THU_MORNING, ["2026-10-10"]);
+    expect(dates[0]).toEqual({ value: "2026-10-04", label: "Minggu, 4 Oktober 2026" });
+    expect(dates.map((d) => d.value)).not.toContain("2026-10-10");
+    expect(dates.map((d) => d.value)).toContain("2026-10-11");
+    expect(dates.every((d) => [0, 6].includes(new Date(`${d.value}T00:00:00Z`).getUTCDay()))).toBe(true);
+    expect(dates.at(-1)?.value).toBe("2026-11-29");
+  });
+});
