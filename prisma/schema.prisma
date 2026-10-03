@@ -1,0 +1,157 @@
+// Skema database Kampung Batik Jetis.
+// Uang: integer rupiah. Tanggal kunjungan: kolom DATE (dimaknai sebagai tanggal WIB).
+
+generator client {
+  provider      = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum BookingStatus {
+  MENUNGGU
+  DIKONFIRMASI
+  LUNAS
+  SELESAI
+  BATAL
+}
+
+/// Paket wisata. Harga selalu dibaca dari sini, tidak pernah dari klien.
+model Package {
+  id              String   @id @default(cuid())
+  slug            String   @unique @db.VarChar(50)
+  name            String   @db.VarChar(100)
+  description     String?  @db.VarChar(1000)
+  pricePerPerson  Int // rupiah
+  durationMinutes Int
+  minParticipants Int // per pesanan
+  maxParticipants Int // per pesanan (TODO(klien): per pesanan atau per sesi?)
+  facilities      String[]
+  isActive        Boolean  @default(true)
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  bookings Booking[]
+}
+
+/// Template sesi harian (jam belum final, TODO(klien)). Berlaku untuk setiap Sabtu/Minggu.
+model Session {
+  id        String   @id @default(cuid())
+  label     String   @db.VarChar(50)
+  startTime String   @db.VarChar(5) // "HH:mm" WIB
+  endTime   String   @db.VarChar(5) // "HH:mm" WIB
+  quota     Int      @default(30) // total peserta per sesi per tanggal
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  slots    SessionSlot[]
+  bookings Booking[]
+
+  @@unique([startTime, endTime])
+}
+
+/// Satu baris per (sesi, tanggal). Dibuat saat pesanan pertama (upsert),
+/// lalu dikunci dengan SELECT ... FOR UPDATE agar kuota tidak overbooking.
+/// Menutup satu sesi pada tanggal tertentu: buat/ubah baris ini dengan isClosed = true (Table Editor).
+model SessionSlot {
+  id           String   @id @default(cuid())
+  sessionId    String
+  visitDate    DateTime @db.Date
+  isClosed     Boolean  @default(false)
+  closedReason String?  @db.VarChar(200)
+  createdAt    DateTime @default(now())
+
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Restrict)
+
+  @@unique([sessionId, visitDate])
+}
+
+model Booking {
+  id               String        @id @default(cuid())
+  code             String        @unique @db.VarChar(8) // acak dari CSPRNG
+  packageId        String
+  sessionId        String
+  visitDate        DateTime      @db.Date
+  participantCount Int
+  unitPrice        Int // snapshot harga paket saat pesan (rupiah)
+  totalPrice       Int // dihitung server (rupiah)
+  customerName     String        @db.VarChar(100)
+  email            String        @db.VarChar(254)
+  whatsapp         String        @db.VarChar(16) // format 62…
+  institution      String?       @db.VarChar(150) // nama sekolah untuk paket pelajar
+  notes            String?       @db.VarChar(500)
+  status           BookingStatus @default(MENUNGGU)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  package    Package            @relation(fields: [packageId], references: [id], onDelete: Restrict)
+  session    Session            @relation(fields: [sessionId], references: [id], onDelete: Restrict)
+  statusLogs BookingStatusLog[]
+
+  @@index([sessionId, visitDate, status])
+  @@index([visitDate])
+  @@index([status, createdAt])
+}
+
+/// Jejak audit perubahan status oleh admin.
+model BookingStatusLog {
+  id             String         @id @default(cuid())
+  bookingId      String
+  fromStatus     BookingStatus?
+  toStatus       BookingStatus
+  changedByEmail String         @db.VarChar(254)
+  createdAt      DateTime       @default(now())
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId, createdAt])
+}
+
+model Umkm {
+  id          String   @id @default(cuid())
+  slug        String   @unique @db.VarChar(80)
+  name        String   @db.VarChar(100)
+  products    String   @db.VarChar(200)
+  description String?  @db.VarChar(1000)
+  priceMin    Int? // rupiah
+  priceMax    Int? // rupiah
+  whatsapp    String?  @db.VarChar(16) // format 62…
+  imageUrl    String?  @db.VarChar(500)
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Faq {
+  id        String   @id @default(cuid())
+  question  String   @db.VarChar(300)
+  answer    String   @db.VarChar(2000)
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// Tanggal tutup penuh (semua sesi), mis. libur/acara. Diisi lewat Table Editor Supabase.
+model ClosedDate {
+  id        String   @id @default(cuid())
+  date      DateTime @unique @db.Date
+  reason    String?  @db.VarChar(200)
+  createdAt DateTime @default(now())
+}
+
+/// Penghitung rate limit fixed-window (mis. pemesanan per IP). key berisi hash IP, bukan IP mentah.
+model RateLimit {
+  key         String   @db.VarChar(100)
+  windowStart DateTime
+  count       Int      @default(0)
+
+  @@id([key, windowStart])
+  @@index([windowStart])
+}
