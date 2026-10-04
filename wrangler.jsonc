@@ -15,7 +15,7 @@
   // Lokal: string koneksi dari env CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE (.env).
   // TODO(deploy): ganti id dengan id Hyperdrive asli (lihat DEPLOY.md).
   "hyperdrive": [
-    { "binding": "HYPERDRIVE", "id": "00000000000000000000000000000000" }
+    { "binding": "HYPERDRIVE", "id": "a774e35987b44a76a4c288ce6c464f5c" }
   ],
   "observability": { "enabled": true }
 }
