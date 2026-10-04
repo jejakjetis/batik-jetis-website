@@ -18,6 +18,9 @@ const filterSchema = z.object({
 
 const fmtDateTime = new Intl.DateTimeFormat("id-ID", { dateStyle: "short", timeStyle: "short", timeZone: "Asia/Jakarta" });
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AdminBookingsPage({ searchParams }: PageProps<"/admin">) {
   await requireAdminPage(); // defense in depth (layout juga mengecek)
   const sp = await searchParams;
