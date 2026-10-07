@@ -1,16 +1,29 @@
+import Image from "next/image"; // <-- 1. Tambahkan import Image
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 
-// TODO(klien): foto hero asli (proses membatik). Sementara motif kawung + overlay gelap.
 export function Hero() {
   return (
     <section
       id="beranda"
       aria-labelledby="hero-title"
-      className="relative isolate overflow-hidden bg-espresso bg-[url(/images/kawung-dark.svg)] bg-repeat"
+      className="relative isolate overflow-hidden bg-espresso"
     >
-      {/* Overlay gelap agar eyebrow & teks terbaca (perbaikan wajib §5.2) */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/95 via-ink/80 to-ink/40" />
+      {/* 2. Gambar Background Foto */}
+      <Image
+        src="/images/hero-section.png"
+        alt="Latar belakang Kampung Batik Jetis"
+        fill
+        priority
+        className="-z-20 object-cover"
+      />
+
+      {/* 3. Lapisan Overlay Gelap */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/95 via-ink/80 to-ink/40"
+      />
+
       <Container className="flex min-h-[min(calc(100svh-4rem),760px)] flex-col justify-center py-20">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-terracotta-light sm:text-sm">
           Wisata Edukasi Batik · Sidoarjo

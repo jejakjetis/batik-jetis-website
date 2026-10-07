@@ -1,7 +1,7 @@
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { SITE, googleMapsLink, osmEmbedUrl } from "@/lib/site";
+import { SITE, googleMapsLink, googleMapsEmbedUrl } from "@/lib/site";
 
 // Embed OpenStreetMap via iframe: 0 KB JavaScript di bundle, tanpa API key.
 // CSP: frame-src https://www.openstreetmap.org.
@@ -30,17 +30,12 @@ export function MapSection() {
         <div className="overflow-hidden rounded-sm border border-line bg-cream">
           <iframe
             title="Peta lokasi Kampung Batik Jetis, Sidoarjo"
-            src={osmEmbedUrl(lat, lng)}
+            src={googleMapsEmbedUrl(lat, lng)}
             className="aspect-[4/3] w-full"
             loading="lazy"
             referrerPolicy="strict-origin-when-cross-origin"
           />
-          <p className="px-3 py-2 text-xs text-muted">
-            Peta ©{" "}
-            <a className="underline" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">
-              kontributor OpenStreetMap
-            </a>
-          </p>
+
         </div>
       </Container>
     </section>
