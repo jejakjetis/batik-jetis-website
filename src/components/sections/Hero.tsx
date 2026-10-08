@@ -35,8 +35,7 @@ export function Hero() {
           Di Sini, Batik Masih Ditulis dengan Tangan.
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/90">
-          Kunjungi Kampung Batik Jetis di Sidoarjo — lihat langsung pengrajin membatik tulis, berkeliling kampung,
-          dan temukan karya UMKM lokal.
+          Kunjungi Kampung Batik Jetis, temui pengrajin, dan kenali warisan batik yang telah berkembang sejak 1675.
         </p>
         <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:gap-4">
           <ButtonLink href="/#pemesanan" size="lg">
