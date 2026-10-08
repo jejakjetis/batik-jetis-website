@@ -2,6 +2,7 @@
 // Hanya dipakai di luar produksi saat DB belum dikonfigurasi (lihat public.ts).
 // Paket & sesi mengikuti CLAUDE.md §3.2–3.4. UMKM belum ada datanya: jangan diisi nama karangan.
 import type { PublicFaq, PublicPackage, PublicSession, PublicUmkm } from "./types";
+import Image from "next/image"; 
 
 export const FIXTURE_PACKAGES: PublicPackage[] = [
   {
@@ -45,16 +46,75 @@ export const FIXTURE_SESSIONS: PublicSession[] = [
   { id: "fixture-sore", label: "Sesi Sore", startTime: "15:00", endTime: "17:00", quota: 30 },
 ];
 
-// TODO(klien): data 7 UMKM (nama, produk, kisaran harga, WA) belum diterima.
-export const FIXTURE_UMKM: PublicUmkm[] = Array.from({ length: 7 }, (_, i) => ({
-  id: `fixture-umkm-${i + 1}`,
-  name: `UMKM ${i + 1} (data menyusul)`,
-  products: "Produk menyusul",
-  description: null,
-  priceMin: null,
-  priceMax: null,
-  whatsapp: null,
-}));
+// TODO(klien): data 6 UMKM (nama, kode peta, produk, kisaran harga, kupon, foto, WA) belum diterima.
+export const FIXTURE_UMKM: PublicUmkm[] = [
+  {
+    id: "fixture-umkm-1",
+    name: "Toko Terang Jaya",
+    mapCode: "T7",
+    products: ["Aneka Minuman", "Aneka Ice Cream", "Aneka Mainan"],
+    description: null,
+    price:"Rp 3.000 - Rp 30.000",
+    discountCoupon: 5000,
+    imageUrl: "images/TerangJaya_Toko_1.jpeg",
+    whatsapp: null,
+  },
+  {
+    id: "fixture-umkm-2",
+    name: "Toko 99Ceria",
+    mapCode: "T8",
+    products: ["Kebab Medium", "Kebab Jumbo", "Es Teh"],
+    description: null,
+    price: "Rp 5.000 - Rp 13.000",
+    discountCoupon: 5000,
+    imageUrl: "images/99Ceria_Toko_2.jpeg",
+    whatsapp: null,
+  },
+  {
+    id: "fixture-umkm-3",
+    name: "Toko Batik Adis",
+    mapCode: "T3",
+    products: ["Baju Batik"],
+    description: null,
+    price: "Rp 150.000 - Rp 260.000",
+    discountCoupon: 30000,
+    imageUrl: "images/toko_batik_adis.jpeg",
+    whatsapp: null,
+  },
+  {
+    id: "fixture-umkm-4",
+    name: "Toko Amir Jaya",
+    mapCode: "T4",
+    products: ["Baju Batik", "Sarung", "Kain Batik"],
+    description: null,
+    price: "Rp 150.000",
+    discountCoupon: 30000,
+    imageUrl: "images/AmirJaya_Toko_3.jpeg",
+    whatsapp: null,
+  },
+  {
+    id: "fixture-umkm-5",
+    name: "Toko Sakinah Batik",
+    mapCode: "T6",
+    products: ["Baju Batik", "Sarung", "Kain Batik"],
+    description: null,
+    price: "Rp 150.000",
+    discountCoupon: 30000,
+    imageUrl: "images/BatikSakinah_Produk_5.jpeg",
+    whatsapp: null,
+  },
+  {
+    id: "fixture-umkm-6",
+    name: "Toko Rimanda",
+    mapCode: "T5",
+    products: ["Baju Batik"],
+    description: null,
+    price: "Rp 150.000",mau push 
+    discountCoupon: 30000,
+    imageUrl: "images/toko-batik-rimanda.jpeg",
+    whatsapp: null,
+  },
+];
 
 // FAQ disusun dari aturan yang sudah disepakati (CLAUDE.md §3). TODO(klien): tinjau redaksi akhir.
 export const FIXTURE_FAQS: PublicFaq[] = [

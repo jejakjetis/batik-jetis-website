@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { PhotoPlaceholder } from "@/components/ui/PhotoPlaceholder";
@@ -18,9 +19,18 @@ export function Packages({ packages }: { packages: PublicPackage[] }) {
         <ul className="mt-12 divide-y divide-line border-y border-line">
           {packages.map((p) => (
             <li key={p.id} className="grid gap-6 py-10 md:grid-cols-[minmax(0,320px)_1fr] md:gap-10">
-              <PhotoPlaceholder label={`Foto kegiatan ${p.name} (menyusul)`} className="aspect-[7/5] w-full rounded-sm" />
+              <div className="relative aspect-[7/5] w-full overflow-hidden rounded-sm border border-line">
+                <Image
+                  src={p.slug === "pelajar" ? "/images/paket-pelajar.jpeg" : "/images/paket-umum.jpg"}
+                  alt={`Foto kegiatan ${p.name}`}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 768px) 320px, 100vw"
+                />
+              </div>
               <div>
                 <h3 className="font-serif text-3xl font-semibold text-ink">{p.name}</h3>
+
                 {p.description && <p className="mt-3 text-lg leading-relaxed text-ink/85">{p.description}</p>}
                 <ul className="mt-4 grid gap-1.5 text-ink/85 sm:grid-cols-2">
                   {p.facilities.map((f) => (

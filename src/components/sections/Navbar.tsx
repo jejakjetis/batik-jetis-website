@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { NAV_ITEMS, SITE } from "@/lib/site";
 import { buttonClasses } from "@/components/ui/Button";
@@ -32,14 +33,22 @@ export function Navbar() {
         Lewati ke konten
       </a>
       <nav aria-label="Navigasi utama" className="mx-auto flex h-16 max-w-site items-center justify-between gap-4 px-4 sm:px-6 lg:h-[72px] lg:px-8">
-        <Link href="/#beranda" className="font-serif text-xl font-semibold text-ink sm:text-2xl">
-          {SITE.name}
+        <Link href="/#beranda" className="flex items-center gap-3 font-serif text-xl font-semibold text-ink sm:text-2xl">
+          <Image
+            src="/images/jejak Jetis Logo Transparent 2.png"
+            alt="Logo Jejak Jetis"
+            width={40}
+            height={40}
+            className="h-15 w-15 object-contain"
+            priority
+          />
+          <span>{SITE.name}</span>
         </Link>
 
-        <ul className="hidden items-center gap-7 lg:flex">
+        <ul className="hidden items-center gap-1.5 lg:flex">
           {NAV_ITEMS.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} className="text-[15px] text-muted transition-colors hover:text-terracotta-text">
+              <Link href={item.href} className="rounded-md px-3 py-1.5 text-[15px] text-muted transition-all duration-200 hover:bg-terracotta hover:text-cream font-medium">
                 {item.label}
               </Link>
             </li>
