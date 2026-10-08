@@ -109,7 +109,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     mapCode: "T5",
     products: ["Baju Batik"],
     description: null,
-    price: "Rp 150.000",
+    price: "Rp 150.000",mau push 
     discountCoupon: 30000,
     imageUrl: "images/toko-batik-rimanda.jpeg",
     whatsapp: null,
