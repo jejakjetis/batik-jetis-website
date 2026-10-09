@@ -5,6 +5,7 @@ Tahap: Produksi & Live | Terakhir diperbarui: 2026-10-10
 Situs telah live di domain produksi **https://jejakjetis.com** dan **https://www.jejakjetis.com** via Cloudflare Workers + OpenNext. Database Supabase terhubung melalui Hyperdrive, migrasi skema tabel UMKM (0004) dan 6 toko telah ter-seed, widget Turnstile aktif, alur pemesanan tiket dengan nomor WhatsApp pengelola (+62 857-1131-2011) berfungsi penuh. Seluruh 39 unit dan integration test lulus.
 
 ## Selesai
+- [x] 2026-10-10 — UI Animasi & Pembersihan: Penambahan animasi fade-in slide-up minimalis (`AnimateIn` via native IntersectionObserver) di seluruh section beranda (Hero, About, Packages, Story, MapSection, Umkm, Faq), serta penghapusan folder tidak terpakai `batik-jetis-next`.
 - [x] 2026-10-10 — Custom Domain & DNS: Integrasi domain Hostinger `jejakjetis.com` dan `www.jejakjetis.com` ke Cloudflare Workers via Custom Domains, pembersihan record A/CNAME parkir Hostinger, eliminasi isu DNS NXDOMAIN/cache.
 - [x] 2026-10-10 — Cloudflare Turnstile: Pengaktifan site key (`0x4AAAAAAFSar_VEJF4it2PT`) dan secret key aktif, whitelist hostname (`jejakjetis.com`, `kampung-batik-jetis.jejakjetis.workers.dev`, `localhost`) via Cloudflare API; perbaikan form pemesanan terkunci.
 - [x] 2026-10-10 — Konfigurasi Kontak: Pembaruan `BOOKING_WHATSAPP_NUMBER` ke nomor resmi pengelola (`6285711312011` / `+62 857-1131-2011`) dan `SITE_URL` ke `https://jejakjetis.com`.
