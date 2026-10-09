@@ -35,11 +35,11 @@ export function Navbar() {
       <nav aria-label="Navigasi utama" className="mx-auto flex h-16 max-w-site items-center justify-between gap-4 px-4 sm:px-6 lg:h-[72px] lg:px-8">
         <Link href="/#beranda" className="flex items-center gap-3 font-serif text-xl font-semibold text-ink sm:text-2xl">
           <Image
-            src="/images/jejak Jetis Logo Transparent 2.png"
+            src="/images/logo.webp"
             alt="Logo Jejak Jetis"
-            width={40}
-            height={40}
-            className="h-15 w-15 object-contain"
+            width={44}
+            height={44}
+            className="h-10 w-10 object-contain sm:h-11 sm:w-11"
             priority
           />
           <span>{SITE.name}</span>
