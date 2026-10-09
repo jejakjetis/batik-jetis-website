@@ -29,6 +29,9 @@ const HERO_SLIDES = [
   },
 ];
 
+const TRANSITION_DURATION_MS = 2500; // 2.5 detik animasi fade in & fade out yang halus
+const SLIDE_INTERVAL_MS = 5000; // 5 detik total (2.5s transisi fade + 2.5s tampilan tenang)
+
 export function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -37,10 +40,16 @@ export function Hero() {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 3000);
+    }, SLIDE_INTERVAL_MS);
   }, []);
 
   useEffect(() => {
+    // Preload semua gambar hero agar transisi selalu instan dan mulus tanpa jeda jaringan
+    HERO_SLIDES.forEach((slide) => {
+      const img = new window.Image();
+      img.src = slide.src;
+    });
+
     resetTimer();
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -58,24 +67,20 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative isolate overflow-hidden bg-espresso"
     >
-      {/* 1. Carousel Background Foto dengan Animasi Geser & Fade */}
+      {/* 1. Carousel Background Foto dengan Animasi Fade In & Fade Out Halus (2.5s) */}
       <div className="absolute inset-0 -z-20 overflow-hidden">
         {HERO_SLIDES.map((slide, idx) => {
           const isActive = idx === currentIndex;
-          const isBefore =
-            (idx < currentIndex && !(currentIndex === HERO_SLIDES.length - 1 && idx === 0)) ||
-            (currentIndex === 0 && idx === HERO_SLIDES.length - 1);
 
           return (
             <div
               key={slide.src}
               aria-hidden={!isActive}
-              className={`absolute inset-0 transition-all duration-1000 ease-out ${
+              style={{ transitionDuration: `${TRANSITION_DURATION_MS}ms` }}
+              className={`absolute inset-0 transition-opacity ease-in-out will-change-[opacity] ${
                 isActive
-                  ? "opacity-100 translate-x-0 scale-100 z-10"
-                  : isBefore
-                  ? "opacity-0 -translate-x-12 scale-105 z-0 pointer-events-none"
-                  : "opacity-0 translate-x-12 scale-105 z-0 pointer-events-none"
+                  ? "opacity-100 z-10"
+                  : "opacity-0 z-0 pointer-events-none"
               }`}
             >
               <Image
@@ -83,6 +88,7 @@ export function Hero() {
                 alt={slide.alt}
                 fill
                 priority={idx === 0}
+                loading={idx === 0 ? undefined : "eager"}
                 className="object-cover"
                 sizes="100vw"
               />
