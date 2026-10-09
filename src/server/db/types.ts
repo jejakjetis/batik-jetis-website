@@ -27,8 +27,9 @@ export type PublicUmkm = {
   mapCode: string | null;
   products: string[];
   description: string | null;
-  priceMin: number | null;
-  priceMax: number | null;
+  price?: string | null;
+  priceMin?: number | null;
+  priceMax?: number | null;
   discountCoupon: number | null;
   imageUrl: string | null;
   whatsapp: string | null;

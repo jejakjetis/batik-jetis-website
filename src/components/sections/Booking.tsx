@@ -4,6 +4,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { DateOption } from "@/server/booking/dates";
 import type { PublicPackage } from "@/server/db/types";
 
+import { AnimateIn } from "@/components/ui/AnimateIn";
+
 export function Booking({
   packages,
   dates,
@@ -18,15 +20,17 @@ export function Booking({
   return (
     <section id="pemesanan" aria-labelledby="pemesanan-title" className="bg-sand py-20 lg:py-28">
       <Container>
-        <SectionHeading id="pemesanan-title" eyebrow="Pemesanan" title="Pesan Kunjungan Anda">
-          <p>
-            Isi formulir di bawah. Setelah terkirim, Anda akan mendapat kode pesanan dan diarahkan ke WhatsApp
-            pengelola untuk konfirmasi dan pembayaran QRIS.
-          </p>
-        </SectionHeading>
-        <div className="mt-12">
+        <AnimateIn>
+          <SectionHeading id="pemesanan-title" eyebrow="Pemesanan" title="Pesan Kunjungan Anda">
+            <p>
+              Isi formulir di bawah. Setelah terkirim, Anda akan mendapat kode pesanan dan diarahkan ke WhatsApp
+              pengelola untuk konfirmasi dan pembayaran QRIS.
+            </p>
+          </SectionHeading>
+        </AnimateIn>
+        <AnimateIn delay={150} className="mt-12">
           <BookingForm key={defaultPackageSlug ?? "default"} packages={packages} dates={dates} siteKey={siteKey} defaultPackageSlug={defaultPackageSlug} />
-        </div>
+        </AnimateIn>
       </Container>
     </section>
   );
