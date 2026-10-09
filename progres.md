@@ -1,11 +1,16 @@
 # Progres
 
 ## Status saat ini
-Tahap: 1 (inti) | Terakhir diperbarui: 2026-10-04
-Front end, form pemesanan, admin, security headers, SEO, dan konfigurasi Cloudflare Workers (OpenNext + Hyperdrive) selesai di sisi kode; lint/typecheck/test/build OpenNext lulus. Belum pernah terhubung ke Supabase sungguhan: migrasi, seed, dan test konkurensi menunggu `.env`. Konten (foto, sejarah, UMKM) masih placeholder.
+Tahap: Produksi & Live | Terakhir diperbarui: 2026-10-10
+Situs telah live di domain produksi **https://jejakjetis.com** dan **https://www.jejakjetis.com** via Cloudflare Workers + OpenNext. Database Supabase terhubung melalui Hyperdrive, migrasi skema tabel UMKM (0004) dan 6 toko telah ter-seed, widget Turnstile aktif, alur pemesanan tiket dengan nomor WhatsApp pengelola (+62 857-1131-2011) berfungsi penuh. Seluruh 39 unit dan integration test lulus.
 
 ## Selesai
-- [x] 2026-10-03 — Setup Next.js 16, TS strict, Tailwind 4, ESLint, Vitest; skema Prisma + migrasi 0001 (CHECK, RLS) + seed
+- [x] 2026-10-10 — Custom Domain & DNS: Integrasi domain Hostinger `jejakjetis.com` dan `www.jejakjetis.com` ke Cloudflare Workers via Custom Domains, pembersihan record A/CNAME parkir Hostinger, eliminasi isu DNS NXDOMAIN/cache.
+- [x] 2026-10-10 — Cloudflare Turnstile: Pengaktifan site key (`0x4AAAAAAFSar_VEJF4it2PT`) dan secret key aktif, whitelist hostname (`jejakjetis.com`, `kampung-batik-jetis.jejakjetis.workers.dev`, `localhost`) via Cloudflare API; perbaikan form pemesanan terkunci.
+- [x] 2026-10-10 — Konfigurasi Kontak: Pembaruan `BOOKING_WHATSAPP_NUMBER` ke nomor resmi pengelola (`6285711312011` / `+62 857-1131-2011`) dan `SITE_URL` ke `https://jejakjetis.com`.
+- [x] 2026-10-10 — Database & UMKM: Migrasi `0004_umkm_columns` (tabel Umkm: mapCode, discountCoupon, imageUrl, products array), seed 6 toko UMKM (`scripts/seed-umkm.js`), perbaikan live query `getUmkm()`, dan stabilisasi runtime Prisma Client.
+- [x] 2026-10-10 — Deployment: Verifikasi typecheck, 39 test Vitest hijau, deploy sukses ke Cloudflare Workers di branch `test-step-step`.
+- [x] 2026-10-04 — Setup Next.js 16, TS strict, Tailwind 4, ESLint, Vitest; skema Prisma + migrasi 0001 (CHECK, RLS) + seed
 - [x] 2026-10-04 — Migrasi 0002 (ClosedDate, SessionSlot.isClosed, RLS _prisma_migrations, REVOKE) dan 0003 (RateLimit)
 - [x] 2026-10-04 — Logika pemesanan + unit test (src/server/booking/), createBooking dengan validasi dulu lalu transaksi FOR UPDATE (src/server/db/bookings.ts)
 - [x] 2026-10-04 — Server action submitBooking: rate limit Postgres, honeypot, Turnstile, Zod, URL WA
@@ -15,24 +20,21 @@ Front end, form pemesanan, admin, security headers, SEO, dan konfigurasi Cloudfl
 - [x] 2026-10-04 — Security headers + CSP (cek curl -I di preview), SEO (metadata, Open Graph, robots, sitemap), noindex admin
 - [x] 2026-10-04 — DEPLOY.md (Cloudflare); CLAUDE.md, README.md diperbarui
 
-## Sedang dikerjakan
-- [ ] Migrasi 0001–0003 + seed + test konkurensi — MENUNGGU `.env` (DIRECT_URL, CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE)
+## Sedang dikerjakan / Pemeliharaan
+- [ ] Monitoring log Observability Cloudflare Workers dan umpan balik pemesanan dari Pokdarwis
+- [ ] Merge berkala antara `test-step-step` dan `main` agar sinkronisasi tim terjaga
 
 ## Berikutnya
-- [ ] Jalankan migrasi/seed/test konkurensi; cek Security Advisor Supabase
-- [ ] Uji form pemesanan end-to-end di preview dengan DB sungguhan
-- [ ] Ganti placeholder: foto (WebP teroptimasi), teks sejarah, data UMKM, FAQ final, alamat & koordinat peta
-- [ ] Deploy manual sesuai DEPLOY.md
-- [ ] (Ditunda) Midtrans — PAYMENT_MODE tetap "manual"
+- [ ] Pembersihan berkala tabel `RateLimit` (bulanan) via Supabase SQL Editor
+- [ ] Evaluasi kebutuhan akun Cloudflare Workers Paid ($5/bln) jika trafik meningkat
+- [ ] (Ditunda) Integrasi payment gateway otomatis (Midtrans) jika dibutuhkan Pokdarwis
 
 ## Tugas non-kode
-- [ ] Beli domain
-- [ ] Buat project Supabase (region Singapura); matikan sign-up publik; buat akun admin
-- [ ] Buat Hyperdrive (direct connection 5432) dan isi id di wrangler.jsonc
-- [ ] Buat Turnstile site key produksi
-- [ ] Isi secret di Cloudflare (`wrangler secret put`)
-- [ ] Hubungkan domain ke Worker
-- [ ] Catat semua akun (domain, Cloudflare, Supabase) untuk dipindahkan ke Pokdarwis
+- [x] Hubungkan domain Hostinger `jejakjetis.com` & `www.jejakjetis.com` ke Cloudflare Workers
+- [x] Buat project Supabase (region Singapura); konfigurasi RLS dan kredensial Hyperdrive
+- [x] Buat Hyperdrive id dan pasang di `wrangler.jsonc`
+- [x] Buat Turnstile widget resmi dan whitelist domain
+- [ ] Serah terima akun pengelola (Cloudflare, Supabase) ke Pokdarwis Jetis
 
 ## Ukuran bundle Worker (gzip)
 - 2026-10-04 — Halaman kosong + proxy.ts: 2.203 KiB
