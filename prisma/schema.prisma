@@ -116,22 +116,19 @@ model BookingStatusLog {
 }
 
 model Umkm {
-  id             String   @id @default(cuid())
-  slug           String   @unique @db.VarChar(80)
-  name           String   @db.VarChar(100)
-  mapCode        String?  @db.VarChar(10)
-  products       String[]
-  description    String?  @db.VarChar(1000)
-  price          String?  @db.VarChar(100)
-  priceMin       Int? // rupiah
-  priceMax       Int? // rupiah
-  discountCoupon Int? // rupiah
-  whatsapp       String?  @db.VarChar(16) // format 62…
-  imageUrl       String?  @db.VarChar(500)
-  isActive       Boolean  @default(true)
-  sortOrder      Int      @default(0)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id          String   @id @default(cuid())
+  slug        String   @unique @db.VarChar(80)
+  name        String   @db.VarChar(100)
+  products    String   @db.VarChar(200)
+  description String?  @db.VarChar(1000)
+  priceMin    Int? // rupiah
+  priceMax    Int? // rupiah
+  whatsapp    String?  @db.VarChar(16) // format 62…
+  imageUrl    String?  @db.VarChar(500)
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Faq {

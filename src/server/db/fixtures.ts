@@ -56,7 +56,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price:"Rp 3.000 - Rp 30.000",
     discountCoupon: 5000,
-    imageUrl: "/images/TerangJaya_Toko_1.jpeg",
+    imageUrl: "images/TerangJaya_Toko_1.jpeg",
     whatsapp: null,
   },
   {
@@ -67,7 +67,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price: "Rp 5.000 - Rp 13.000",
     discountCoupon: 5000,
-    imageUrl: "/images/99Ceria_Toko_2.jpeg",
+    imageUrl: "images/99Ceria_Toko_2.jpeg",
     whatsapp: null,
   },
   {
@@ -78,7 +78,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price: "Rp 150.000 - Rp 260.000",
     discountCoupon: 30000,
-    imageUrl: "/images/toko_batik_adis.jpeg",
+    imageUrl: "images/toko_batik_adis.jpeg",
     whatsapp: null,
   },
   {
@@ -89,7 +89,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price: "Rp 150.000",
     discountCoupon: 30000,
-    imageUrl: "/images/AmirJaya_Toko_3.jpeg",
+    imageUrl: "images/AmirJaya_Toko_3.jpeg",
     whatsapp: null,
   },
   {
@@ -100,7 +100,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price: "Rp 150.000",
     discountCoupon: 30000,
-    imageUrl: "/images/BatikSakinah_Produk_5.jpeg",
+    imageUrl: "images/BatikSakinah_Produk_5.jpeg",
     whatsapp: null,
   },
   {
@@ -111,7 +111,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price: "Rp 150.000",
     discountCoupon: 30000,
-    imageUrl: "/images/toko-batik-rimanda.jpeg",
+    imageUrl: "images/toko-batik-rimanda.jpeg",
     whatsapp: null,
   },
 ];
