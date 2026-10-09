@@ -6,7 +6,6 @@ import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { AnimateIn } from "@/components/ui/AnimateIn";
 import { SITE, googleMapsLink, googleMapsEmbedUrl } from "@/lib/site";
 
 // Embed OpenStreetMap via iframe: 0 KB JavaScript di bundle, tanpa API key.
@@ -18,26 +17,24 @@ export function MapSection() {
   return (
     <section id="peta" aria-labelledby="peta-title" className="bg-sand py-20 lg:py-28">
       <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-center lg:gap-16">
-        <AnimateIn delay={100}>
-          <div>
-            <SectionHeading id="peta-title" eyebrow="Lokasi" title="Peta Wisata" accent>
-              <p>Kampung Batik Jetis berada di tengah Kota Sidoarjo dan mudah dijangkau dari pusat kota.</p>
-            </SectionHeading>
-            <address className="mt-6 not-italic leading-relaxed text-ink/85">
-              {SITE.addressLines.map((l) => (
-                <span key={l} className="block">
-                  {l}
-                </span>
-              ))}
-            </address>
-            <div className="mt-6">
-              <ButtonLink href={googleMapsLink(lat, lng)} variant="outline" external>
-                Buka di Google Maps
-              </ButtonLink>
-            </div>
+        <div>
+          <SectionHeading id="peta-title" eyebrow="Lokasi" title="Peta Wisata" accent>
+            <p>Kampung Batik Jetis berada di tengah Kota Sidoarjo dan mudah dijangkau dari pusat kota.</p>
+          </SectionHeading>
+          <address className="mt-6 not-italic leading-relaxed text-ink/85">
+            {SITE.addressLines.map((l) => (
+              <span key={l} className="block">
+                {l}
+              </span>
+            ))}
+          </address>
+          <div className="mt-6">
+            <ButtonLink href={googleMapsLink(lat, lng)} variant="outline" external>
+              Buka di Google Maps
+            </ButtonLink>
           </div>
-        </AnimateIn>
-        <AnimateIn delay={200} className="flex flex-col gap-3">
+        </div>
+        <div className="flex flex-col gap-3">
 {/* Tombol Pengalih Tab (Kiri = Google Maps, Kanan = Denah) */}
 <div className="relative grid w-full grid-cols-2 rounded-md border border-line bg-cream p-1">
   {/* 1. Balok Background Geser */}
@@ -74,7 +71,7 @@ export function MapSection() {
   <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-line bg-cream">
     {activeTab === "denah" ? (
       <Image
-        src="/images/Peta wisata.png"
+        src="/images/Peta_Wisata.jpg"
         alt="Denah Kawasan Wisata Kampung Batik Jetis"
         fill
         className="object-contain p-2"
@@ -96,7 +93,7 @@ export function MapSection() {
       <>
         <span>Gunakan denah ini untuk memandu rute di dalam kampung</span>
         <a
-          href="/images/Peta wisata.png"
+          href="/images/Peta_Wisata.jpg"
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium text-terracotta-text underline hover:text-terracotta"
@@ -118,7 +115,7 @@ export function MapSection() {
               </>
             )}
           </div>
-        </AnimateIn>
+        </div>
       </Container>
     </section>
   );

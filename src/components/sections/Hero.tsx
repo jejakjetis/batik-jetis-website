@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/image"; // <-- 1. Tambahkan import Image
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 
@@ -9,6 +9,7 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative isolate overflow-hidden bg-espresso"
     >
+      {/* 2. Gambar Background Foto */}
       <Image
         src="/images/hero-section.png"
         alt="Latar belakang Kampung Batik Jetis"
@@ -17,25 +18,26 @@ export function Hero() {
         className="-z-20 object-cover"
       />
 
+      {/* 3. Lapisan Overlay Gelap */}
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/95 via-ink/80 to-ink/40"
       />
 
       <Container className="flex min-h-[min(calc(100svh-4rem),760px)] flex-col justify-center py-20">
-        <p className="animate-hero-tagline text-xs font-semibold uppercase tracking-[0.25em] text-terracotta-light sm:text-sm">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-terracotta-light sm:text-sm">
           Wisata Edukasi Batik · Sidoarjo
         </p>
         <h1
           id="hero-title"
-          className="animate-hero-title mt-5 max-w-3xl font-serif text-5xl leading-[1.05] font-semibold text-cream sm:text-6xl lg:text-7xl"
+          className="mt-5 max-w-3xl font-serif text-5xl leading-[1.05] font-semibold text-cream sm:text-6xl lg:text-7xl"
         >
           Di Sini, Batik Masih Ditulis dengan Tangan.
         </h1>
-        <p className="animate-hero-desc mt-6 max-w-xl text-lg leading-relaxed text-cream/90">
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/90">
           Kunjungi Kampung Batik Jetis, temui pengrajin, dan kenali warisan batik yang telah berkembang sejak 1675.
         </p>
-        <div className="animate-hero-buttons mt-9 flex flex-col gap-3 sm:flex-row sm:gap-4">
+        <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:gap-4">
           <ButtonLink href="/#pemesanan" size="lg">
             Pesan Tiket
           </ButtonLink>
