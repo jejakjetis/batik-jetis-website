@@ -1,16 +1,11 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonClasses } from "@/components/ui/Button";
+import { PhotoPlaceholder } from "@/components/ui/PhotoPlaceholder";
 import type { PublicUmkm } from "@/server/db/types";
 import { formatRupiah } from "@/server/booking/whatsapp";
 
-function priceRange(u: PublicUmkm): string | null {
-  if (u.priceMin != null && u.priceMax != null) return `${formatRupiah(u.priceMin)} – ${formatRupiah(u.priceMax)}`;
-  if (u.priceMin != null) return `Mulai ${formatRupiah(u.priceMin)}`;
-  return null;
-}
-
-// Kartu usaha (perbaikan §5.2: bukan sekadar galeri): nama, produk, kisaran harga, tombol WA.
 export function Umkm({ items }: { items: PublicUmkm[] }) {
   return (
     <section id="umkm" aria-labelledby="umkm-title" className="bg-cream py-20 lg:py-28">
@@ -18,27 +13,81 @@ export function Umkm({ items }: { items: PublicUmkm[] }) {
         <SectionHeading id="umkm-title" eyebrow="Usaha Lokal" title="UMKM Kampung Batik Jetis">
           <p>Belanja langsung dari pengrajin dan pelaku usaha di kampung.</p>
         </SectionHeading>
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+        <ul className="mt-12 grid gap-6 sm:grid-cols-2">
           {items.map((u) => {
-            const price = priceRange(u);
             const wa = u.whatsapp
               ? `https://wa.me/${u.whatsapp}?text=${encodeURIComponent(`Halo ${u.name}, saya melihat usaha Anda di website Kampung Batik Jetis.`)}`
               : null;
+
             return (
-              <li key={u.id} className="flex flex-col rounded-sm border border-line bg-sand p-6">
-                <h3 className="font-serif text-2xl font-semibold text-ink">{u.name}</h3>
-                <p className="mt-1 text-ink/85">{u.products}</p>
-                {u.description && <p className="mt-3 text-sm leading-relaxed text-muted">{u.description}</p>}
-                <p className="mt-4 text-sm text-muted">
-                  Kisaran harga: <span className="font-semibold text-ink">{price ?? "menyusul"}</span>
-                </p>
-                <div className="mt-auto pt-5">
-                  {wa ? (
-                    <a href={wa} target="_blank" rel="noopener noreferrer" className={buttonClasses("outline", "md", "w-full")}>
-                      Hubungi via WhatsApp
-                    </a>
+              <li key={u.id} className="flex flex-col overflow-hidden rounded-sm border border-line bg-sand">
+                {/* Foto Toko */}
+                <div className="relative w-full aspect-[16/9]">
+                  {u.imageUrl ? (
+                    <Image
+                      src={u.imageUrl}
+                      alt={`Foto toko ${u.name}`}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 640px) 50vw, 100vw"
+                    />
                   ) : (
-                    <p className="text-sm text-muted">Kontak menyusul</p>
+                    <PhotoPlaceholder
+                      label={`Foto toko ${u.name} (menyusul)`}
+                      className="h-full w-full"
+                    />
+                  )}
+                  {/* Badge Kode Peta */}
+                  {u.mapCode && (
+                    <span className="absolute top-3 right-3 rounded bg-espresso/90 px-2.5 py-1 text-xs font-semibold tracking-widest text-cream">
+                      {u.mapCode}
+                    </span>
+                  )}
+                </div>
+
+                {/* Konten Kartu */}
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="font-serif text-2xl font-semibold text-ink">{u.name}</h3>
+
+                  {/* List Produk */}
+                  <ul className="mt-3 space-y-1">
+                    {u.products.map((prod) => (
+                      <li key={prod} className="flex items-start gap-2 text-sm text-ink/80">
+                        <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-terracotta" />
+                        {prod}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Estimasi Harga & Kupon */}
+                  <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-4">
+                    <p className="text-sm text-muted">
+                      Estimasi harga:{" "}
+                      <span className="font-semibold text-ink">{u.price ?? "menyusul"}</span>
+                    </p>
+                    {u.discountCoupon != null && (
+                      <p className="text-sm text-muted">
+                        🎟 Kupon diskon:{" "}
+                        <span className="font-semibold text-terracotta-text">
+                          {formatRupiah(u.discountCoupon)}
+                        </span>
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Tombol WA (hanya tampil jika kontak ada) */}
+                  {wa && (
+                    <div className="mt-auto pt-5">
+                      <a
+                        href={wa}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={buttonClasses("outline", "md", "w-full")}
+                      >
+                        Hubungi via WhatsApp
+                      </a>
+                    </div>
                   )}
                 </div>
               </li>
@@ -49,3 +98,4 @@ export function Umkm({ items }: { items: PublicUmkm[] }) {
     </section>
   );
 }
+

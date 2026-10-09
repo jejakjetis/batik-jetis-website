@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
@@ -7,11 +8,15 @@ export function Story() {
   return (
     <section aria-labelledby="kisah-title" className="bg-espresso">
       <div className="grid lg:grid-cols-2">
-        <div
-          role="img"
-          aria-label="Motif batik kawung (ilustrasi)"
-          className="min-h-64 bg-[url(/images/kawung-dark.svg)] bg-[length:120px] bg-repeat lg:min-h-[560px]"
-        />
+       <div className="relative min-h-72 w-full lg:min-h-full">
+          <Image
+            src="/images/Batik1.jpeg"
+            alt="Proses membatik tulis di Kampung Batik Jetis"
+            fill
+            className="object-cover"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+          />
+       </div>
         <Container className="py-16 lg:max-w-none lg:py-24 lg:pl-16 xl:pr-[max(2rem,calc((100vw-75rem)/2+2rem))]">
           <SectionHeading id="kisah-title" eyebrow="Kisah Batik" title="Setiap Garis Ditarik dengan Canting" accent tone="dark">
             <p>

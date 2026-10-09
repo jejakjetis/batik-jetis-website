@@ -24,10 +24,13 @@ export type SessionAvailability = PublicSession & { remaining: number; closed: b
 export type PublicUmkm = {
   id: string;
   name: string;
-  products: string;
+  mapCode: string | null;
+  products: string[];
   description: string | null;
   priceMin: number | null;
   priceMax: number | null;
+  discountCoupon: number | null;
+  imageUrl: string | null;
   whatsapp: string | null;
 };
 
