@@ -50,3 +50,6 @@ next-env.d.ts
 .wrangler/
 .dev.vars*
 !.dev.vars.example
+
+# arsip screenshot (duplikat Design/)
+Archive.zip

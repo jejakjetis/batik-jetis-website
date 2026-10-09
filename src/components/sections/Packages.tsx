@@ -21,10 +21,10 @@ export function Packages({ packages }: { packages: PublicPackage[] }) {
             <li key={p.id} className="grid gap-6 py-10 md:grid-cols-[minmax(0,320px)_1fr] md:gap-10">
               <div className="relative aspect-[7/5] w-full overflow-hidden rounded-sm border border-line">
                 <Image
-                  src={p.slug === "pelajar" ? "/images/paket-pelajar.jpeg" : "/images/paket-umum.jpg"}
+                  src={p.slug === "pelajar" ? "/images/Paket_Siswa.jpg" : "/images/Paket_Umum.jpg"}
                   alt={`Foto kegiatan ${p.name}`}
                   fill
-                  className="object-cover"
+                  className="object-cover object-[center_5%] transition-transform duration-700 ease-out group-hover:scale-105"
                   sizes="(min-width: 768px) 320px, 100vw"
                 />
               </div>
