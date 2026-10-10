@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonClasses } from "@/components/ui/Button";
 import { PhotoPlaceholder } from "@/components/ui/PhotoPlaceholder";
+import { AnimateIn } from "@/components/ui/AnimateIn";
 import type { PublicUmkm } from "@/server/db/types";
 import { formatRupiah } from "@/server/booking/whatsapp";
 
@@ -10,11 +11,14 @@ export function Umkm({ items }: { items: PublicUmkm[] }) {
   return (
     <section id="umkm" aria-labelledby="umkm-title" className="bg-cream py-20 lg:py-28">
       <Container>
-        <SectionHeading id="umkm-title" eyebrow="Usaha Lokal" title="UMKM Kampung Batik Jetis">
-          <p>Belanja langsung dari pengrajin dan pelaku usaha di kampung.</p>
-        </SectionHeading>
+        <AnimateIn>
+          <SectionHeading id="umkm-title" eyebrow="Usaha Lokal" title="UMKM Kampung Batik Jetis">
+            <p>Belanja langsung dari pengrajin dan pelaku usaha di kampung.</p>
+          </SectionHeading>
+        </AnimateIn>
 
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2">
+        <AnimateIn delay={150}>
+          <ul className="mt-12 grid gap-6 sm:grid-cols-2">
           {items.map((u) => {
             const wa = u.whatsapp
               ? `https://wa.me/${u.whatsapp}?text=${encodeURIComponent(`Halo ${u.name}, saya melihat usaha Anda di website Kampung Batik Jetis.`)}`
@@ -94,6 +98,7 @@ export function Umkm({ items }: { items: PublicUmkm[] }) {
             );
           })}
         </ul>
+      </AnimateIn>
       </Container>
     </section>
   );

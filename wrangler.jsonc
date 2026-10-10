@@ -20,7 +20,7 @@
   "vars": {
     "ADMIN_EMAILS": "jejakjetis@gmail.com",
     "BOOKING_WHATSAPP_NUMBER": "6285711312011",
-    "SITE_URL": "https://kampung-batik-jetis.jejakjetis.workers.dev",
+    "SITE_URL": "https://jejakjetis.com",
     "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhbHhpcmhsZ3FiamNscmFpY2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjI5NTksImV4cCI6MjEwNjY5ODk1OX0.MYOzJOmqMYWKIq_PhpqH8jg6AkNJWupXTpkJOfgC4lg",
     "SUPABASE_URL": "https://valxirhlgqbjclraicbl.supabase.co",
     "TURNSTILE_SECRET_KEY": "0x4AAAAAAFSar5R8V63I2Twa7r3OiB1UJtg",

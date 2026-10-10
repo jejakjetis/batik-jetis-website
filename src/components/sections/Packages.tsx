@@ -3,6 +3,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { PhotoPlaceholder } from "@/components/ui/PhotoPlaceholder";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { AnimateIn } from "@/components/ui/AnimateIn";
 import type { PublicPackage } from "@/server/db/types";
 import { formatRupiah } from "@/server/booking/whatsapp";
 
@@ -15,10 +16,13 @@ export function Packages({ packages }: { packages: PublicPackage[] }) {
   return (
     <section id="kegiatan" aria-labelledby="kegiatan-title" className="bg-sand py-20 lg:py-28">
       <Container>
-        <SectionHeading id="kegiatan-title" eyebrow="Paket Wisata" title="Kegiatan Wisata" />
+        <AnimateIn>
+          <SectionHeading id="kegiatan-title" eyebrow="Paket Wisata" title="Kegiatan Wisata" />
+        </AnimateIn>
         <ul className="mt-12 divide-y divide-line border-y border-line">
-          {packages.map((p) => (
-            <li key={p.id} className="grid gap-6 py-10 md:grid-cols-[minmax(0,320px)_1fr] md:gap-10">
+          {packages.map((p, idx) => (
+            <AnimateIn key={p.id} delay={idx * 150}>
+              <li className="grid gap-6 py-10 md:grid-cols-[minmax(0,320px)_1fr] md:gap-10">
               <div className="relative aspect-[7/5] w-full overflow-hidden rounded-sm border border-line">
                 <Image
                   src={p.slug === "pelajar" ? "/images/Paket_Siswa.jpg" : "/images/Paket_Umum.jpg"}
@@ -56,7 +60,8 @@ export function Packages({ packages }: { packages: PublicPackage[] }) {
                 </div>
               </div>
             </li>
-          ))}
+          </AnimateIn>
+        ))}
         </ul>
       </Container>
     </section>

@@ -2,6 +2,8 @@
 
 Website wisata satu halaman dengan pemesanan tiket kunjungan (Sabtu/Minggu, kuota per sesi) dan panel admin untuk mengelola status pesanan. Pembayaran QRIS dikonfirmasi manual via WhatsApp (`PAYMENT_MODE` manual; Midtrans ditunda).
 
+**Domain Resmi (Live):** [https://jejakjetis.com](https://jejakjetis.com) / [https://www.jejakjetis.com](https://www.jejakjetis.com)
+
 ## Stack
 Next.js 16 (App Router) + TypeScript strict · Tailwind CSS v4 · PostgreSQL (Supabase) via Prisma 7 (`@prisma/adapter-pg`, compiler `small`) · Supabase Auth (`@supabase/ssr`, khusus admin) · Zod 4 · Vitest · Deploy **Cloudflare Workers** via `@opennextjs/cloudflare`, DB runtime lewat binding **Hyperdrive** (koneksi langsung Supabase 5432) · Turnstile · Zona waktu bisnis Asia/Jakarta (WIB).
 

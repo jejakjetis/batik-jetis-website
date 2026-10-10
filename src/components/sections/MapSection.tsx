@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { AnimateIn } from "@/components/ui/AnimateIn";
 import { SITE, googleMapsLink, googleMapsEmbedUrl } from "@/lib/site";
 
 // Embed OpenStreetMap via iframe: 0 KB JavaScript di bundle, tanpa API key.
@@ -17,24 +18,27 @@ export function MapSection() {
   return (
     <section id="peta" aria-labelledby="peta-title" className="bg-sand py-20 lg:py-28">
       <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-center lg:gap-16">
-        <div>
-          <SectionHeading id="peta-title" eyebrow="Lokasi" title="Peta Wisata" accent>
-            <p>Kampung Batik Jetis berada di tengah Kota Sidoarjo dan mudah dijangkau dari pusat kota.</p>
-          </SectionHeading>
-          <address className="mt-6 not-italic leading-relaxed text-ink/85">
-            {SITE.addressLines.map((l) => (
-              <span key={l} className="block">
-                {l}
-              </span>
-            ))}
-          </address>
-          <div className="mt-6">
-            <ButtonLink href={googleMapsLink(lat, lng)} variant="outline" external>
-              Buka di Google Maps
-            </ButtonLink>
+        <AnimateIn>
+          <div>
+            <SectionHeading id="peta-title" eyebrow="Lokasi" title="Peta Wisata" accent>
+              <p>Kampung Batik Jetis berada di tengah Kota Sidoarjo dan mudah dijangkau dari pusat kota.</p>
+            </SectionHeading>
+            <address className="mt-6 not-italic leading-relaxed text-ink/85">
+              {SITE.addressLines.map((l) => (
+                <span key={l} className="block">
+                  {l}
+                </span>
+              ))}
+            </address>
+            <div className="mt-6">
+              <ButtonLink href={googleMapsLink(lat, lng)} variant="outline" external>
+                Buka di Google Maps
+              </ButtonLink>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-3">
+        </AnimateIn>
+        <AnimateIn delay={150}>
+          <div className="flex flex-col gap-3">
 {/* Tombol Pengalih Tab (Kiri = Google Maps, Kanan = Denah) */}
 <div className="relative grid w-full grid-cols-2 rounded-md border border-line bg-cream p-1">
   {/* 1. Balok Background Geser */}
@@ -116,6 +120,7 @@ export function MapSection() {
             )}
           </div>
         </div>
+      </AnimateIn>
       </Container>
     </section>
   );

@@ -39,20 +39,25 @@ export async function getSessions(): Promise<PublicSession[]> {
 export async function getUmkm(): Promise<PublicUmkm[]> {
   if (await shouldUseFixtures()) return FIXTURE_UMKM;
   const db = await getDb();
-  // TODO(schema): tambah kolom mapCode, discountCoupon, imageUrl, ubah products ke array di Prisma schema,
-  // lalu perbarui select di bawah dan hapus mapping manual ini.
   const rows = await db.umkm.findMany({
     where: { isActive: true },
     orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
-    select: { id: true, name: true, products: true, description: true, priceMin: true, priceMax: true, whatsapp: true },
+    select: {
+      id: true,
+      name: true,
+      mapCode: true,
+      products: true,
+      description: true,
+      price: true,
+      priceMin: true,
+      priceMax: true,
+      discountCoupon: true,
+      imageUrl: true,
+      whatsapp: true,
+    },
   });
-  return rows.map((r) => ({
-    ...r,
-    mapCode: null,
-    products: typeof r.products === "string" ? [r.products] : (r.products as string[]),
-    discountCoupon: null,
-    imageUrl: null,
-  }));
+  if (rows.length === 0) return FIXTURE_UMKM;
+  return rows;
 }
 
 export async function getFaqs(): Promise<PublicFaq[]> {
