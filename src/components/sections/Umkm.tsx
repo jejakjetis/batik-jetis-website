@@ -68,7 +68,7 @@ export function Umkm({ items }: { items: PublicUmkm[] }) {
                     </p>
                     {u.discountCoupon != null && (
                       <p className="text-sm text-muted">
-                        🎟 Kupon diskon:{" "}
+                        Kupon diskon:{" "}
                         <span className="font-semibold text-terracotta-text">
                           {formatRupiah(u.discountCoupon)}
                         </span>
