@@ -23,8 +23,8 @@ export default async function HomePage({ searchParams }: PageProps<"/">) {
     <>
       <Hero />
       <About />
-      <Packages packages={packages} />
       <Story />
+      <Packages packages={packages} />
       <MapSection />
       <Umkm items={umkm} />
       <Booking

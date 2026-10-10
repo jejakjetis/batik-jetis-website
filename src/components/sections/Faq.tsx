@@ -6,7 +6,7 @@ import type { PublicFaq } from "@/server/db/types";
 // <details>/<summary>: bisa dibuka-tutup dengan keyboard tanpa JavaScript.
 export function Faq({ items }: { items: PublicFaq[] }) {
   return (
-    <section id="faq" aria-labelledby="faq-title" className="bg-cream py-20 lg:py-28">
+    <section id="faq" aria-labelledby="faq-title" className="bg-sand py-20 lg:py-28">
       <Container>
         <AnimateIn>
           <SectionHeading id="faq-title" eyebrow="FAQ" title="Pertanyaan Umum" />

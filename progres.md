@@ -4,9 +4,13 @@
 Tahap: Produksi & Live | Terakhir diperbarui: 2026-10-10
 Situs telah live di domain produksi **https://jejakjetis.com** dan **https://www.jejakjetis.com** via Cloudflare Workers + OpenNext. Database Supabase terhubung melalui Hyperdrive, migrasi skema tabel UMKM (0004) dan 6 toko telah ter-seed, widget Turnstile aktif, alur pemesanan tiket dengan nomor WhatsApp pengelola (+62 857-1131-2011) berfungsi penuh. Seluruh 39 unit dan integration test lulus.
 
-Pembaruan terbaru di branch `main` mencakup penyempurnaan konten dan layout Tentang serta transkrip wawancara, pemasangan foto Batik Namiroh, animasi pada bagian transkrip, pengalihan referensi gambar ke format WebP, dan tautan Google Maps ke lokasi resmi.
+Pembaruan terbaru mencakup pemisahan panel Kisah Batik ke `Story.tsx` dengan tombol tampilkan/tutup dan animasi ringan, serta pola latar berselang-seling untuk Tentang, Paket Wisata, Peta, UMKM, Pemesanan, dan FAQ. Jarak bagian Paket Wisata/Peta, garis pemisah daftar paket, dan alignment konten peta juga disesuaikan.
 
 ## Selesai
+- [x] 2026-10-10 — Memisahkan panel Kisah Batik dari `About.tsx` ke `Story.tsx`; tombol tampilkan/tutup memakai animasi CSS dan menghormati reduced motion.
+- [x] 2026-10-10 — Membuat latar section utama berselang-seling, menjaga kontras kartu UMKM dan ringkasan pemesanan, serta merapikan jarak dan garis daftar Paket Wisata.
+- [x] 2026-10-10 — Meratakan judul Lokasi ke bagian atas peta dan menyesuaikan jarak bagian Paket Wisata ke Peta.
+- [x] 2026-10-10 — Pemeriksaan ESLint (`npm run lint`) dan TypeScript (`npm run typecheck`) lulus untuk pembaruan ini.
 - [x] 2026-10-10 — Mengarahkan kedua tautan Google Maps ke tautan lokasi resmi yang diberikan pengelola (src/lib/site.ts, src/components/sections/MapSection.tsx)
 - [x] 2026-10-10 — Memperbaiki error dan warning ESLint: script seed CommonJS, animasi reduced-motion, import tak terpakai, dan pemakaian koordinat Google Maps (scripts/seed-umkm.js, src/components/ui/AnimateIn.tsx, src/lib/site.ts, fixtures dan section)
 - [x] 2026-10-10 — Menyesuaikan rasio bingkai foto Batik Namiroh ke 3:2 agar gambar memenuhi bingkai tanpa ruang kosong atas-bawah (src/components/sections/About.tsx)
@@ -42,7 +46,6 @@ Pembaruan terbaru di branch `main` mencakup penyempurnaan konten dan layout Tent
 - [x] 2026-10-04 — DEPLOY.md (Cloudflare); CLAUDE.md, README.md diperbarui
 
 ## Sedang dikerjakan / Pemeliharaan
-- [ ] 2026-10-10 — Meninjau dan memverifikasi perubahan lokal (lint, typecheck, build), lalu commit dan push ke `main`; perubahan mencakup `About.tsx`, aset WebP, referensi gambar Hero/Story/Map/Packages/UMKM, dan `progres.md`.
 - [ ] Monitoring log Observability Cloudflare Workers dan umpan balik pemesanan dari Pokdarwis
 - [ ] Merge berkala antara `test-step-step` dan `main` agar sinkronisasi tim terjaga
 

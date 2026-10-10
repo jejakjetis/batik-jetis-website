@@ -16,8 +16,8 @@ export function MapSection() {
     // State untuk mengingat tab: nilai awal adalah "denah"
   const [activeTab, setActiveTab] = useState<"google" | "denah">("google");
   return (
-    <section id="peta" aria-labelledby="peta-title" className="bg-sand py-20 lg:py-28">
-      <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-center lg:gap-16">
+    <section id="peta" aria-labelledby="peta-title" className="bg-cream pt-20 pb-20 lg:pt-20 lg:pb-28">
+      <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-start lg:gap-16">
         <AnimateIn>
           <div>
             <SectionHeading id="peta-title" eyebrow="Lokasi" title="Peta Wisata" accent>

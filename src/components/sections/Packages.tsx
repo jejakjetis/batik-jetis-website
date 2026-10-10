@@ -13,12 +13,12 @@ function formatDuration(minutes: number): string {
 
 export function Packages({ packages }: { packages: PublicPackage[] }) {
   return (
-    <section id="kegiatan" aria-labelledby="kegiatan-title" className="bg-sand py-20 lg:py-28">
+    <section id="kegiatan" aria-labelledby="kegiatan-title" className="bg-sand pt-20 pb-4 lg:pt-28 lg:pb-4">
       <Container>
         <AnimateIn>
           <SectionHeading id="kegiatan-title" eyebrow="Paket Wisata" title="Kegiatan Wisata" />
         </AnimateIn>
-        <ul className="mt-12 divide-y divide-line border-y border-line">
+        <ul className="mt-12">
           {packages.map((p, idx) => (
             <AnimateIn key={p.id} delay={idx * 150}>
               <li className="grid gap-6 py-10 md:grid-cols-[minmax(0,320px)_1fr] md:gap-10">

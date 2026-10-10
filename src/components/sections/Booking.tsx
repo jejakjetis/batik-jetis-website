@@ -18,7 +18,7 @@ export function Booking({
   defaultPackageSlug?: string;
 }) {
   return (
-    <section id="pemesanan" aria-labelledby="pemesanan-title" className="bg-sand py-20 lg:py-28">
+    <section id="pemesanan" aria-labelledby="pemesanan-title" className="bg-cream py-20 lg:py-28">
       <Container>
         <AnimateIn>
           <SectionHeading id="pemesanan-title" eyebrow="Pemesanan" title="Pesan Kunjungan Anda">

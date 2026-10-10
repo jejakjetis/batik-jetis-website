@@ -87,7 +87,7 @@ export function BookingForm({
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] lg:gap-16">
       {/* Ringkasan: hanya tampilan; server menghitung ulang harga dari database. */}
-      <aside aria-labelledby={`${uid}-ringkasan`} className="h-fit rounded-sm border border-line bg-cream p-6 lg:sticky lg:top-24 lg:order-first">
+      <aside aria-labelledby={`${uid}-ringkasan`} className="h-fit rounded-sm border border-line bg-sand p-6 lg:sticky lg:top-24 lg:order-first">
         <h3 id={`${uid}-ringkasan`} className="font-serif text-2xl font-semibold text-ink">
           Ringkasan
         </h3>

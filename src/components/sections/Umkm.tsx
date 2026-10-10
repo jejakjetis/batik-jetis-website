@@ -9,7 +9,7 @@ import { formatRupiah } from "@/server/booking/whatsapp";
 
 export function Umkm({ items }: { items: PublicUmkm[] }) {
   return (
-    <section id="umkm" aria-labelledby="umkm-title" className="bg-cream py-20 lg:py-28">
+    <section id="umkm" aria-labelledby="umkm-title" className="bg-sand py-20 lg:py-28">
       <Container>
         <AnimateIn>
           <SectionHeading id="umkm-title" eyebrow="Usaha Lokal" title="UMKM Kampung Batik Jetis">
@@ -25,7 +25,7 @@ export function Umkm({ items }: { items: PublicUmkm[] }) {
               : null;
 
             return (
-              <li key={u.id} className="flex flex-col overflow-hidden rounded-sm border border-line bg-sand">
+              <li key={u.id} className="flex flex-col overflow-hidden rounded-sm border border-line bg-cream">
                 {/* Foto Toko */}
                 <div className="relative w-full aspect-[16/9]">
                   {u.imageUrl ? (
