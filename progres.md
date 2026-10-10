@@ -4,7 +4,25 @@
 Tahap: Produksi & Live | Terakhir diperbarui: 2026-10-10
 Situs telah live di domain produksi **https://jejakjetis.com** dan **https://www.jejakjetis.com** via Cloudflare Workers + OpenNext. Database Supabase terhubung melalui Hyperdrive, migrasi skema tabel UMKM (0004) dan 6 toko telah ter-seed, widget Turnstile aktif, alur pemesanan tiket dengan nomor WhatsApp pengelola (+62 857-1131-2011) berfungsi penuh. Seluruh 39 unit dan integration test lulus.
 
+Pembaruan lokal terbaru dikerjakan di branch `main`: penyempurnaan konten dan layout Tentang serta transkrip wawancara, pemasangan foto Batik Namiroh, animasi pada bagian transkrip, dan pengalihan referensi gambar ke format WebP. Perubahan ini masih lokal dan belum di-commit atau di-push.
+
 ## Selesai
+- [x] 2026-10-10 — Memperbaiki error dan warning ESLint: script seed CommonJS, animasi reduced-motion, import tak terpakai, dan pemakaian koordinat Google Maps (scripts/seed-umkm.js, src/components/ui/AnimateIn.tsx, src/lib/site.ts, fixtures dan section)
+- [x] 2026-10-10 — Menyesuaikan rasio bingkai foto Batik Namiroh ke 3:2 agar gambar memenuhi bingkai tanpa ruang kosong atas-bawah (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Merapatkan jarak label, subjudul, dan paragraf Batik Namiroh dengan meratakan konten ke atas sejajar gambar (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Merapatkan jarak vertikal antarparagraf sejarah pada desktop agar setara dengan paragraf transkrip (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Menyamakan animasi reveal pada setiap judul, paragraf, garis aksen, dan gambar di bagian transkrip (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Menambahkan paragraf lanjutan Batik Namiroh selebar kontainer di bawah baris judul dan gambar (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Merapatkan jarak label transkrip dengan subbagian Batik Namiroh (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Menyesuaikan gaya judul transkrip dan subjudulnya dengan heading bagian Tentang (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Menghapus placeholder gambar dari subbagian Batik Kamsatun dan Proses Pembatikan (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Menata subbagian transkrip dalam layout teks kiri dan placeholder gambar kanan (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Menambahkan kerangka transkrip wawancara dengan subbagian Batik Namiroh, Batik Kamsatun, dan Proses Pembatikan (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Membentangkan paragraf lanjutan Tentang selebar dua kolom di desktop (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Menerapkan perataan justify pada paragraf Tentang (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Menyamakan tipografi paragraf lanjutan Tentang dengan paragraf utama (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Memindahkan paragraf lanjutan Tentang ke bawah gambar pada layout desktop (src/components/sections/About.tsx)
+- [x] 2026-10-10 — Menyiapkan paragraf lanjutan kosong pada section Tentang untuk diisi (src/components/sections/About.tsx)
 - [x] 2026-10-10 — Hero Carousel Background: Penyempurnaan transisi background slider menjadi cross-dissolve fade in & fade out halus berdurasi 2.5 detik (menghilangkan pergeseran translate-x yang patah), eager loading dan preloading aset gambar hero ke memori browser, auto-cycle 5 detik (2.5s transisi + 2.5s tampilan tenang), dan tombol navigasi sudut kanan '>'.
 - [x] 2026-10-10 — UI Animasi & Pembersihan: Penambahan animasi fade-in slide-up minimalis (`AnimateIn` via native IntersectionObserver) di seluruh section beranda (Hero, About, Packages, Story, MapSection, Umkm, Faq), serta penghapusan folder tidak terpakai `batik-jetis-next`.
 - [x] 2026-10-10 — Custom Domain & DNS: Integrasi domain Hostinger `jejakjetis.com` dan `www.jejakjetis.com` ke Cloudflare Workers via Custom Domains, pembersihan record A/CNAME parkir Hostinger, eliminasi isu DNS NXDOMAIN/cache.
@@ -23,6 +41,7 @@ Situs telah live di domain produksi **https://jejakjetis.com** dan **https://www
 - [x] 2026-10-04 — DEPLOY.md (Cloudflare); CLAUDE.md, README.md diperbarui
 
 ## Sedang dikerjakan / Pemeliharaan
+- [ ] 2026-10-10 — Meninjau dan memverifikasi perubahan lokal (lint, typecheck, build), lalu commit dan push ke `main`; perubahan mencakup `About.tsx`, aset WebP, referensi gambar Hero/Story/Map/Packages/UMKM, dan `progres.md`.
 - [ ] Monitoring log Observability Cloudflare Workers dan umpan balik pemesanan dari Pokdarwis
 - [ ] Merge berkala antara `test-step-step` dan `main` agar sinkronisasi tim terjaga
 

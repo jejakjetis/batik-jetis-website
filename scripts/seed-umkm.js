@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-require-imports: "off" -- This standalone Node script uses CommonJS. */
 const { Client } = require('pg');
 require('dotenv').config();
 

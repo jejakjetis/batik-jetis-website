@@ -8,23 +8,23 @@ import { AnimateIn } from "@/components/ui/AnimateIn";
 
 const HERO_SLIDES = [
   {
-    src: "/images/hero-section.png",
+    src: "/images/hero-section.webp",
     alt: "Suasana Kampung Batik Jetis Sidoarjo",
   },
   {
-    src: "/images/jetis_batik_textiles_1784011646807.jpg",
+    src: "/images/jetis_batik_textiles_1784011646807.webp",
     alt: "Kain Batik Tulis Tradisional Jetis",
   },
   {
-    src: "/images/jetis_motif_flora_1786716303715.jpg",
+    src: "/images/jetis_motif_flora_1786716303715.webp",
     alt: "Motif Batik Flora Khas Jetis",
   },
   {
-    src: "/images/jetis_motif_maritim_1786716329628.jpg",
+    src: "/images/jetis_motif_maritim_1786716329628.webp",
     alt: "Motif Batik Maritim Khas Jetis",
   },
   {
-    src: "/images/jetis_motif_merak_1786716289157.jpg",
+    src: "/images/jetis_motif_merak_1786716289157.webp",
     alt: "Motif Batik Merak Khas Jetis",
   },
 ];

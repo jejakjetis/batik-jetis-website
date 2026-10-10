@@ -2,7 +2,6 @@
 // Hanya dipakai di luar produksi saat DB belum dikonfigurasi (lihat public.ts).
 // Paket & sesi mengikuti CLAUDE.md §3.2–3.4. UMKM belum ada datanya: jangan diisi nama karangan.
 import type { PublicFaq, PublicPackage, PublicSession, PublicUmkm } from "./types";
-import Image from "next/image"; 
 
 export const FIXTURE_PACKAGES: PublicPackage[] = [
   {
@@ -56,7 +55,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price:"Rp 3.000 - Rp 30.000",
     discountCoupon: 5000,
-    imageUrl: "/images/TerangJaya_Toko_1.jpeg",
+    imageUrl: "/images/TerangJaya_Toko_1.webp",
     whatsapp: null,
   },
   {
@@ -67,7 +66,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price: "Rp 5.000 - Rp 13.000",
     discountCoupon: 5000,
-    imageUrl: "/images/99Ceria_Toko_2.jpeg",
+    imageUrl: "/images/99Ceria_Toko_2.webp",
     whatsapp: null,
   },
   {
@@ -78,7 +77,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price: "Rp 150.000 - Rp 260.000",
     discountCoupon: 30000,
-    imageUrl: "/images/toko_batik_adis.jpeg",
+    imageUrl: "/images/toko_batik_adis.webp",
     whatsapp: null,
   },
   {
@@ -89,7 +88,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price: "Rp 150.000",
     discountCoupon: 30000,
-    imageUrl: "/images/AmirJaya_Toko_3.jpeg",
+    imageUrl: "/images/AmirJaya_Toko_3.webp",
     whatsapp: null,
   },
   {
@@ -100,7 +99,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price: "Rp 150.000",
     discountCoupon: 30000,
-    imageUrl: "/images/BatikSakinah_Produk_5.jpeg",
+    imageUrl: "/images/BatikSakinah_Produk_5.webp",
     whatsapp: null,
   },
   {
@@ -111,7 +110,7 @@ export const FIXTURE_UMKM: PublicUmkm[] = [
     description: null,
     price: "Rp 150.000",
     discountCoupon: 30000,
-    imageUrl: "/images/toko-batik-rimanda.jpeg",
+    imageUrl: "/images/toko-batik-rimanda.webp",
     whatsapp: null,
   },
 ];

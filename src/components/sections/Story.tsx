@@ -11,7 +11,7 @@ export function Story() {
       <div className="grid lg:grid-cols-2">
         <AnimateIn className="relative min-h-72 w-full lg:min-h-full">
           <Image
-            src="/images/Batik1.jpeg"
+            src="/images/Batik1.webp"
             alt="Proses membatik tulis di Kampung Batik Jetis"
             fill
             className="object-cover"

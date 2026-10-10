@@ -75,7 +75,7 @@ export function MapSection() {
   <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-line bg-cream">
     {activeTab === "denah" ? (
       <Image
-        src="/images/Peta_Wisata.jpg"
+        src="/images/Peta_Wisata.webp"
         alt="Denah Kawasan Wisata Kampung Batik Jetis"
         fill
         className="object-contain p-2"
@@ -97,7 +97,7 @@ export function MapSection() {
       <>
         <span>Gunakan denah ini untuk memandu rute di dalam kampung</span>
         <a
-          href="/images/Peta_Wisata.jpg"
+          href="/images/Peta_Wisata.webp"
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium text-terracotta-text underline hover:text-terracotta"

@@ -26,12 +26,6 @@ export function AnimateIn({
     const el = ref.current;
     if (!el) return;
 
-    // Respect user's motion preference
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setIsVisible(true);
-      return;
-    }
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -68,7 +62,7 @@ export function AnimateIn({
     <div
       ref={ref}
       style={baseStyle}
-      className={`transition-all will-change-[opacity,transform] ${transformClass} ${className}`}
+      className={`transition-all will-change-[opacity,transform] motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-none ${transformClass} ${className}`}
     >
       {children}
     </div>

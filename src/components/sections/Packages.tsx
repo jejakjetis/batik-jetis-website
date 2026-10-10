@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { PhotoPlaceholder } from "@/components/ui/PhotoPlaceholder";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { AnimateIn } from "@/components/ui/AnimateIn";
 import type { PublicPackage } from "@/server/db/types";
@@ -25,7 +24,7 @@ export function Packages({ packages }: { packages: PublicPackage[] }) {
               <li className="grid gap-6 py-10 md:grid-cols-[minmax(0,320px)_1fr] md:gap-10">
               <div className="relative aspect-[7/5] w-full overflow-hidden rounded-sm border border-line">
                 <Image
-                  src={p.slug === "pelajar" ? "/images/Paket_Siswa.jpg" : "/images/Paket_Umum.jpg"}
+                  src={p.slug === "pelajar" ? "/images/Paket_Siswa.webp" : "/images/Paket_Umum.webp"}
                   alt={`Foto kegiatan ${p.name}`}
                   fill
                   className="object-cover object-[center_5%] transition-transform duration-700 ease-out group-hover:scale-105"
