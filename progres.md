@@ -4,9 +4,10 @@
 Tahap: Produksi & Live | Terakhir diperbarui: 2026-10-10
 Situs telah live di domain produksi **https://jejakjetis.com** dan **https://www.jejakjetis.com** via Cloudflare Workers + OpenNext. Database Supabase terhubung melalui Hyperdrive, migrasi skema tabel UMKM (0004) dan 6 toko telah ter-seed, widget Turnstile aktif, alur pemesanan tiket dengan nomor WhatsApp pengelola (+62 857-1131-2011) berfungsi penuh. Seluruh 39 unit dan integration test lulus.
 
-Pembaruan lokal terbaru dikerjakan di branch `main`: penyempurnaan konten dan layout Tentang serta transkrip wawancara, pemasangan foto Batik Namiroh, animasi pada bagian transkrip, dan pengalihan referensi gambar ke format WebP. Perubahan ini masih lokal dan belum di-commit atau di-push.
+Pembaruan terbaru di branch `main` mencakup penyempurnaan konten dan layout Tentang serta transkrip wawancara, pemasangan foto Batik Namiroh, animasi pada bagian transkrip, pengalihan referensi gambar ke format WebP, dan tautan Google Maps ke lokasi resmi.
 
 ## Selesai
+- [x] 2026-10-10 — Mengarahkan kedua tautan Google Maps ke tautan lokasi resmi yang diberikan pengelola (src/lib/site.ts, src/components/sections/MapSection.tsx)
 - [x] 2026-10-10 — Memperbaiki error dan warning ESLint: script seed CommonJS, animasi reduced-motion, import tak terpakai, dan pemakaian koordinat Google Maps (scripts/seed-umkm.js, src/components/ui/AnimateIn.tsx, src/lib/site.ts, fixtures dan section)
 - [x] 2026-10-10 — Menyesuaikan rasio bingkai foto Batik Namiroh ke 3:2 agar gambar memenuhi bingkai tanpa ruang kosong atas-bawah (src/components/sections/About.tsx)
 - [x] 2026-10-10 — Merapatkan jarak label, subjudul, dan paragraf Batik Namiroh dengan meratakan konten ke atas sejajar gambar (src/components/sections/About.tsx)

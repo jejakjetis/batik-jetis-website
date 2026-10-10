@@ -31,7 +31,7 @@ export function MapSection() {
               ))}
             </address>
             <div className="mt-6">
-              <ButtonLink href={googleMapsLink(lat, lng)} variant="outline" external>
+              <ButtonLink href={googleMapsLink()} variant="outline" external>
                 Buka di Google Maps
               </ButtonLink>
             </div>
@@ -109,7 +109,7 @@ export function MapSection() {
       <>
         <span>Petunjuk arah perjalanan menuju lokasi</span>
         <a
-          href={googleMapsLink(lat, lng)}
+          href={googleMapsLink()}
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium text-terracotta-text underline hover:text-terracotta"

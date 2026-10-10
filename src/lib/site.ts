@@ -24,8 +24,8 @@ export function osmEmbedUrl(lat: number, lng: number): string {
   return `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${lat},${lng}`;
 }
 
-export function googleMapsLink(lat: number, lng: number): string {
-	return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lng}`)}`;
+export function googleMapsLink(): string {
+	return "https://maps.app.goo.gl/AiwuCpivsZSDZWw59";
 }
 export function googleMapsEmbedUrl(lat: number, lng:number): string {
 	    return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.0774216942596!2d${lng}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7e1333afd2ef1%3A0x977f519df88e7c23!2sKampoeng%20Batik%20Jetis!5e0!3m2!1sen!2sid!4v1791272776696!5m2!1sen!2sid`;
